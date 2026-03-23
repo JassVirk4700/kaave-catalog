@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# KAAVE B2B Catalog Website
 
-## Getting Started
+Welcome to the **KAAVE** B2B Catalog, a premium, interactive, lightweight digital catalog designed specifically for showcasing traditional Indian footwear (Flat Mules, Punjabi Juttis, Lahori, etc.) to wholesale clients. 
 
-First, run the development server:
+This project is built from the ground up to be a **static, extremely fast, mobile-first frontend** that connects buyers directly to your business via WhatsApp inquiries, functioning flawlessly without needing a complex backend database.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠 Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework:** Next.js (App Router) v15 / v16 (Turbopack)
+- **Styling:** Tailwind CSS (via `globals.css`)
+- **Languages:** TypeScript / React
+- **Icons:** `react-icons/fa` (for WhatsApp), standard `.ico` scaling, and custom `.webp` assets (e.g., the mirroring cultural elephants).
+- **Deployment:** Vercel (Statically exported and edge-ready)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 How to Run & Deploy
 
-## Learn More
+### Local Development
+1. Clone the repository and run `npm install`.
+2. Copy `.env.example` to `.env.local` and add your WhatsApp number (e.g., `NEXT_PUBLIC_WHATSAPP_NUMBER=919876543221`) and localhost URL.
+3. Start the dev server using `npm run dev`.
 
-To learn more about Next.js, take a look at the following resources:
+### Adding/Editing Products
+All products are statically stored in `data/products.ts`. To add a new product or update inventory:
+1. Open `data/products.ts`.
+2. Duplicate an existing product block.
+3. Fill in the unique details (`slug`, `name`, `images`, `specs`, etc.).
+   *Ensure image paths correctly point to files placed in the `public/images/products/...` folder!*
+4. Save the file. The site will automatically reflect the changes.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Made by Jass ❤️
