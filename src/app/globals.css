@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #fcfaf7;
   --foreground: #171717;
 }
 
@@ -12,15 +12,24 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Helvetica, sans-serif;
+}
+
+/* Custom slim scrollbar for subcategory pills */
+.subcategory-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #d4b8a8 transparent;
+}
+.subcategory-scroll::-webkit-scrollbar {
+  height: 3px;
+}
+.subcategory-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.subcategory-scroll::-webkit-scrollbar-thumb {
+  background: #d4b8a8;
+  border-radius: 999px;
 }

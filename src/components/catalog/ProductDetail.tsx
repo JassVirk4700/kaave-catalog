@@ -1,7 +1,10 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { FaWhatsapp } from 'react-icons/fa';
 import { Product } from '../../../types/product';
+import { useWhatsApp } from '../../hooks/useWhatsApp';
 
 interface ProductDetailProps {
   product: Product;
@@ -9,6 +12,11 @@ interface ProductDetailProps {
 }
 
 export const ProductDetail = ({ product, onClose }: ProductDetailProps) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const images = product.images.map((src) =>
+    src.startsWith('/') ? src : `/${src}`
+  );
+
   // Prevent body scroll when modal is open
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -17,23 +25,19 @@ export const ProductDetail = ({ product, onClose }: ProductDetailProps) => {
     };
   }, []);
 
-  const handleWhatsAppClick = () => {
-    const message = `Hi, I'm interested in the ${product.name} from the KAAVE catalog.`;
-    window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
-  };
+  const { handleWhatsAppClick } = useWhatsApp();
 
   return (
-    <div 
-      className="fixed inset-0 z-100 flex items-end md:items-center justify-center bg-black/40 backdrop-blur-sm p-4 animate-in fade-in duration-300"
+    <div
+      className="fixed inset-0 z-100 flex items-end md:items-center justify-center bg-black/40 backdrop-blur-sm p-4"
       onClick={onClose}
     >
-      <div 
+      <div
         className="bg-[#fcfaf7] w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl relative flex flex-col max-h-[90vh]"
         onClick={(e) => e.stopPropagation()}
       >
-        
         {/* Close Button */}
-        <button 
+        <button
           onClick={onClose}
           className="absolute top-4 right-4 z-10 p-2 bg-white shadow-md rounded-full hover:bg-gray-100 transition text-gray-800"
           aria-label="Close"
@@ -45,17 +49,56 @@ export const ProductDetail = ({ product, onClose }: ProductDetailProps) => {
         </button>
 
         <div className="overflow-y-auto w-full">
-          {/* Image Header */}
-          <div className="aspect-square md:aspect-16/10 bg-[#eae6df] relative w-full flex items-center justify-center">
-            {/* Placeholder for Product Image */}
-            <span className="text-gray-400 text-lg font-light">Image Gallery Area</span>
+          {/* Main Image */}
+          <div className="relative h-56 sm:h-72 md:h-80 w-full bg-[#eae6df] overflow-hidden">
+            {images.length > 0 ? (
+              <Image
+                key={activeIndex}
+                src={images[activeIndex]}
+                alt={`${product.name} - image ${activeIndex + 1}`}
+                fill
+                sizes="(max-width: 768px) 100vw, 672px"
+                className="object-contain object-center"
+                priority
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-gray-400 font-light">No images</span>
+              </div>
+            )}
           </div>
+
+          {/* Thumbnail strip — shown only if ≥2 images */}
+          {images.length >= 2 && (
+            <div className="flex gap-2 px-3 py-2 bg-white border-b border-[#f0ede6]">
+              {images.slice(0, 5).map((src, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setActiveIndex(i)}
+                  className={`relative shrink-0 w-16 h-16 overflow-hidden rounded-md transition-all ${i === activeIndex
+                    ? 'ring-2 ring-[#873d3d]'
+                    : 'opacity-50 hover:opacity-80'
+                    }`}
+                  aria-label={`View image ${i + 1}`}
+                >
+                  <Image
+                    src={src}
+                    alt={`${product.name} thumbnail ${i + 1}`}
+                    fill
+                    sizes="64px"
+                    className="object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* Details Section */}
           <div className="p-6 md:p-8">
             <h2 className="text-2xl font-serif font-bold text-gray-800 mb-2">{product.name}</h2>
             <p className="text-gray-500 mb-6">{product.description}</p>
-            
+
             <div className="grid grid-cols-2 gap-4 mb-8">
               <div className="bg-white p-4 rounded-xl shadow-sm border border-[#f0ede6]">
                 <div className="text-xs text-gray-400 uppercase tracking-wider mb-1">Material</div>
@@ -76,13 +119,11 @@ export const ProductDetail = ({ product, onClose }: ProductDetailProps) => {
               </ul>
             </div>
 
-            <button 
-              onClick={handleWhatsAppClick}
+            <button
+              onClick={() => handleWhatsAppClick(product)}
               className="w-full bg-[#128C7E] hover:bg-[#0c6b5f] text-white py-4 rounded-xl font-medium tracking-wide transition-colors flex items-center justify-center gap-2 shadow-lg"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.066.376-.05.39.462.534.607c.144.145.289.116.39.058s.65-.304.723-.578.072-.275.051-.304-.072-.043-.159-.087l-1.025-.491c-.131-.059-.226-.145-.304-.304z"/>
-              </svg>
+              <FaWhatsapp size={26} />
               Inquire on WhatsApp
             </button>
           </div>

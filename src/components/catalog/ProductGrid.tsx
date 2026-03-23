@@ -19,10 +19,10 @@ export const ProductGrid = ({ products, onProductClick }: ProductGridProps) => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 px-6 max-w-7xl mx-auto mb-16">
       {products.map((product) => (
-        <ProductCard 
-          key={product.id} 
-          product={product} 
-          onClick={onProductClick} 
+        <ProductCard
+          key={product.id}
+          product={product}
+          onClick={onProductClick}
         />
       ))}
     </div>

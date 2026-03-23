@@ -13,10 +13,11 @@ export const SubcategoryPills = ({
   onSubcategoryChange,
 }: SubcategoryPillsProps) => {
   return (
-    <div className="flex flex-wrap justify-center gap-3 mb-10 px-6">
+    <div className="subcategory-scroll flex flex-nowrap md:flex-wrap md:justify-center gap-3 mb-10 overflow-x-auto md:overflow-x-visible px-6 pb-3 md:pb-0">
+
       <button
         onClick={() => onSubcategoryChange(null)}
-        className={`px-5 py-2 rounded-full text-xs md:text-sm transition-all duration-300 ${
+        className={`shrink-0 whitespace-nowrap px-5 py-2 rounded-full text-xs md:text-sm transition-all duration-300 ${
           activeSubcategory === null
             ? 'bg-[#873d3d] text-white shadow-md'
             : 'bg-white text-gray-600 border border-gray-200 hover:border-[#873d3d] hover:text-[#873d3d]'
@@ -28,7 +29,7 @@ export const SubcategoryPills = ({
         <button
           key={category}
           onClick={() => onSubcategoryChange(category)}
-          className={`px-5 py-2 rounded-full text-xs md:text-sm transition-all duration-300 ${
+          className={`shrink-0 whitespace-nowrap px-5 py-2 rounded-full text-xs md:text-sm transition-all duration-300 ${
             activeSubcategory === category
               ? 'bg-[#873d3d] text-white shadow-md'
               : 'bg-white text-gray-600 border border-gray-200 hover:border-[#873d3d] hover:text-[#873d3d]'

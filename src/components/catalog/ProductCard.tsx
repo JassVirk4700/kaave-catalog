@@ -8,21 +8,31 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ product, onClick }: ProductCardProps) => {
+  const firstImage = product.images[0];
+  const hasImage = Boolean(firstImage);
+
   return (
-    <div 
-      className="group cursor-pointer flex flex-col"
+    <button
+      type="button"
+      className="group flex flex-col text-left w-full outline-none"
       onClick={() => onClick(product)}
     >
       <div className="relative aspect-4/5 overflow-hidden rounded-xl bg-[#f5f3f0] mb-4">
-        {/* Render a placeholder div if images are just placeholders, or Image component once real images are available */}
-        <div className="w-full h-full relative p-2 transition-transform duration-500 group-hover:scale-105">
-           {/* In a real app, use next/image. Since we have '/images/products/placeholder.jpg', we will use an unoptimized img tag or a generic colored div based on the UI. For the sake of matching the PRD, we'll try next/image or fallback. Let's use standard img for now to avoid next/image strict config errors if not setup, or use a neutral background. */}
-           <div className="absolute inset-0 flex items-center justify-center bg-[#eae6df]">
-             <span className="text-gray-400 text-sm font-light">Image Area</span>
-           </div>
-        </div>
-        
-        {/* Badges */}
+        {hasImage ? (
+          <Image
+            src={firstImage.startsWith('/') ? firstImage : `/${firstImage}`}
+            alt={product.name}
+            fill
+            sizes="(max-width: 768px) 50vw, 25vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center bg-[#eae6df]">
+            <span className="text-gray-400 text-sm font-light">No image</span>
+          </div>
+        )}
+
+        {/* Badge */}
         {product.tag && (
           <div className="absolute top-3 left-3 z-10">
             <span className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-[10px] font-bold tracking-wider text-gray-800 uppercase shadow-sm">
@@ -40,6 +50,6 @@ export const ProductCard = ({ product, onClick }: ProductCardProps) => {
           {product.shortDescription}
         </p>
       </div>
-    </div>
+    </button>
   );
 };

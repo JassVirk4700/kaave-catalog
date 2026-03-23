@@ -35,10 +35,10 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fcfaf7] flex flex-col relative font-sans">
+    <div className="font-sans">
       <Header />
       
-      <main className="grow">
+      <main>
         <HeroSection />
         
         <CategoryTabs 
