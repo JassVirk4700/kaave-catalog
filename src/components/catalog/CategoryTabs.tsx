@@ -19,7 +19,7 @@ export const CategoryTabs = ({ activeCategory, onCategoryChange }: CategoryTabsP
       >
         Ladies Wear
         {activeCategory === 'Ladies Wear' && (
-          <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#873d3d]" />
+          <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#873d3d]" />
         )}
       </button>
 
@@ -36,7 +36,7 @@ export const CategoryTabs = ({ activeCategory, onCategoryChange }: CategoryTabsP
           COMING SOON
         </span>
         {activeCategory === 'Mens Wear' && (
-          <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#873d3d]" />
+          <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#873d3d]" />
         )}
       </button>
     </div>
