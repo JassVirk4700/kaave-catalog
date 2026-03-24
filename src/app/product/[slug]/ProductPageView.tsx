@@ -14,8 +14,8 @@ interface ProductPageViewProps {
 }
 
 export function ProductPageView({ product }: ProductPageViewProps) {
-  const images = product.images.map((src) =>
-    src.startsWith('/') ? src : `/${src}`
+  const images = (product.images || []).map((src) =>
+    src.startsWith('http') || src.startsWith('/') ? src : `/${src}`
   );
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -101,7 +101,7 @@ export function ProductPageView({ product }: ProductPageViewProps) {
           <div className="mb-6">
             <h3 className="text-sm font-bold text-gray-800 mb-3 uppercase tracking-wider">Specifications</h3>
             <ul className="list-disc list-inside space-y-2 text-gray-600 text-sm">
-              {product.specs.map((spec, i) => (
+              {(product.specs || []).map((spec, i) => (
                 <li key={i}>{spec}</li>
               ))}
             </ul>

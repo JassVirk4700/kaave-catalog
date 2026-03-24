@@ -1,11 +1,11 @@
 import { notFound } from 'next/navigation';
 import { ProductPageView } from './ProductPageView';
-import { createSupabaseServerClient } from '@/utils/supabase/server';
+import { createSupabaseServerClient, createSupabaseStaticClient } from '@/utils/supabase/server';
 import { mapProductRowToProduct } from '@/utils/supabase/mapper';
 
 // We optionally bypass generateStaticParams for dynamic fetching, or query Supabase to pre-build.
 export async function generateStaticParams() {
-  const supabase = await createSupabaseServerClient();
+  const supabase = createSupabaseStaticClient();
   const { data: products } = await supabase.from('products').select('slug');
   return (products || []).map((product: any) => ({
     slug: product.slug,

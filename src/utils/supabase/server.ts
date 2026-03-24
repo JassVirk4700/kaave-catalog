@@ -1,4 +1,5 @@
 import { createServerClient } from '@supabase/ssr'
+import { createClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 import { Database } from '@/types/database.types'
 
@@ -27,3 +28,15 @@ export async function createSupabaseServerClient() {
         }
     )
 }
+
+/**
+ * Static client for build-time operations (e.g., generateStaticParams).
+ * It does NOT use cookies, preventing build errors in Next.js.
+ */
+export function createSupabaseStaticClient() {
+    return createClient<Database>(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
+    )
+}
+
