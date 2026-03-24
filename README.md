@@ -8,6 +8,7 @@ This project is built from the ground up to be a **static, extremely fast, mobil
 ## 🛠 Tech Stack
 
 - **Framework:** Next.js (App Router) v15 / v16 (Turbopack)
+- **Backend:** SUPABASE
 - **Styling:** Tailwind CSS (via `globals.css`)
 - **Languages:** TypeScript / React
 - **Icons:** `react-icons/fa` (for WhatsApp), standard `.ico` scaling, and custom `.webp` assets (e.g., the mirroring cultural elephants).
