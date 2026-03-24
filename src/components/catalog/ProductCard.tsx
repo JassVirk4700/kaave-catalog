@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { Product } from '../../../types/product';
+import { Product } from '../../types/product';
 
 interface ProductCardProps {
   product: Product;
@@ -8,7 +8,7 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ product, onClick }: ProductCardProps) => {
-  const firstImage = product.images[0];
+  const firstImage = (product.images || [])[0];
   const hasImage = Boolean(firstImage);
 
   return (
@@ -20,7 +20,7 @@ export const ProductCard = ({ product, onClick }: ProductCardProps) => {
       <div className="relative aspect-4/5 overflow-hidden rounded-xl bg-[#f5f3f0] mb-4">
         {hasImage ? (
           <Image
-            src={firstImage.startsWith('/') ? firstImage : `/${firstImage}`}
+            src={firstImage.startsWith('http') || firstImage.startsWith('/') ? firstImage : `/${firstImage}`}
             alt={product.name}
             fill
             sizes="(max-width: 768px) 50vw, 25vw"

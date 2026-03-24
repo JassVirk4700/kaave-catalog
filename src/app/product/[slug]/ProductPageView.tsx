@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { FaWhatsapp } from 'react-icons/fa';
 import { Header } from '../../../components/layout/Header';
 import { Footer } from '../../../components/layout/Footer';
-import { Product } from '../../../../types/product';
+import { Product } from '../../../types/product';
 import { useWhatsApp } from '../../../hooks/useWhatsApp';
 
 interface ProductPageViewProps {

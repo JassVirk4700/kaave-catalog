@@ -1,9 +1,9 @@
-import { Product } from '../../types/product';
+import { Product } from '../types/product';
 
 export const useWhatsApp = () => {
   const getWhatsAppUrl = (product: Product) => {
     const phone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '';
-    const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? '').replace(/\/$/, '');
+    const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://kaave-catalog.vercel.app').replace(/\/$/, '');
     const productUrl = `${siteUrl}/product/${product.slug}`;
 
     const message = [

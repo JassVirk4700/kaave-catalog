@@ -1,5 +1,5 @@
 import React from 'react';
-import { SubCategory } from '../../../types/product';
+import { SubCategory } from '../../types/product';
 
 interface SubcategoryPillsProps {
   categories: SubCategory[];
@@ -17,11 +17,10 @@ export const SubcategoryPills = ({
 
       <button
         onClick={() => onSubcategoryChange(null)}
-        className={`shrink-0 whitespace-nowrap px-5 py-2 rounded-full text-xs md:text-sm transition-all duration-300 ${
-          activeSubcategory === null
+        className={`shrink-0 whitespace-nowrap px-5 py-2 rounded-full text-xs md:text-sm transition-all duration-300 ${activeSubcategory === null
             ? 'bg-[#873d3d] text-white shadow-md'
             : 'bg-white text-gray-600 border border-gray-200 hover:border-[#873d3d] hover:text-[#873d3d]'
-        }`}
+          }`}
       >
         All
       </button>
@@ -29,11 +28,10 @@ export const SubcategoryPills = ({
         <button
           key={category}
           onClick={() => onSubcategoryChange(category)}
-          className={`shrink-0 whitespace-nowrap px-5 py-2 rounded-full text-xs md:text-sm transition-all duration-300 ${
-            activeSubcategory === category
+          className={`shrink-0 whitespace-nowrap px-5 py-2 rounded-full text-xs md:text-sm transition-all duration-300 ${activeSubcategory === category
               ? 'bg-[#873d3d] text-white shadow-md'
               : 'bg-white text-gray-600 border border-gray-200 hover:border-[#873d3d] hover:text-[#873d3d]'
-          }`}
+            }`}
         >
           {category}
         </button>

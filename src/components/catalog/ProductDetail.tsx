@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { FaWhatsapp } from 'react-icons/fa';
-import { Product } from '../../../types/product';
+import { Product } from '../../types/product';
 import { useWhatsApp } from '../../hooks/useWhatsApp';
 
 interface ProductDetailProps {
@@ -13,8 +13,8 @@ interface ProductDetailProps {
 
 export const ProductDetail = ({ product, onClose }: ProductDetailProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const images = product.images.map((src) =>
-    src.startsWith('/') ? src : `/${src}`
+  const images = (product.images || []).map((src) =>
+    src.startsWith('http') || src.startsWith('/') ? src : `/${src}`
   );
 
   // Prevent body scroll when modal is open
@@ -112,8 +112,8 @@ export const ProductDetail = ({ product, onClose }: ProductDetailProps) => {
 
             <div className="mb-8">
               <h3 className="text-sm font-bold text-gray-800 mb-3 uppercase tracking-wider">Specifications</h3>
-              <ul className="list-disc list-inside space-y-2 text-gray-600">
-                {product.specs.map((spec, i) => (
+               <ul className="list-disc list-inside space-y-2 text-gray-600">
+                {(product.specs || []).map((spec, i) => (
                   <li key={i}>{spec}</li>
                 ))}
               </ul>
